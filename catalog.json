@@ -1,16 +1,13 @@
 {
-  "updated_at": "2026-11-22",
+  "updated_at": "2026-11-27",
   "mods": [
     {
-      "id": "dev.example.noop-lib",
-      "name": "Example Library (No-op)",
-      "version": "1.0.0",
-      "author": "Isam (example)",
-      "category": "Library",
-      "description": "EXAMPLE ONLY - a harmless placeholder library. It contains no BepInEx plugin, so it does nothing in game. Included to demonstrate dependency links.",
-      "download_url": "",
-      "sha256": "",
-      "size": 1540,
+      "id": "com.isam.au_assets_swapper",
+      "name": "AU Assets Swapper",
+      "author": "Isam Ahmed",
+      "category": "Textures",
+      "description": "🎮 BepInEx IL2CPP plugin for Among Us! Swap in-game assets with ease like minecraft! ⚡️",
+      "download_url": "https://github.com/isam-ahmed0/AU-Assets-Swapper/releases/latest/download/swapper.dll",
       "dependencies": [],
       "incompatibilities": [],
       "game_version": "any"

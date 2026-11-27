@@ -1,36 +1,38 @@
 # au_mods
 
 Remote mod catalog for CrewLauncher's **Mod Browser** page. The launcher reads
-[`catalog.json`](catalog.json) from this repository's `master` branch:
+[`catalog.json`](catalog.json) fresh from this repository's `master` branch:
 
 ```
 https://raw.githubusercontent.com/isam-ahmed0/au_mods/master/catalog.json
 ```
 
+No caching: every catalog load fetches this file again. See
+`docs/MOD_CATALOG.md` in the launcher repository for the full schema.
+
 ## Contents
 
-- `catalog.json` — the manifest (id, name, version, description, download URL,
-  SHA-256, dependencies, categories).
-- `mods/` — one `.zip` per mod version. Each zip contains the plugin DLL(s);
-  a `BepInEx/plugins/` prefix is allowed and is flattened at install time.
+- `catalog.json` — the manifest (id, name, description, download URL,
+  dependencies, categories). There is no `version`, `sha256` or `size` field:
+  those change with every release and would mean editing the catalog constantly.
+- `mods/` — example plugin ZIPs. Paths inside a zip are flattened to their
+  basename at install time, and only `.dll` files are copied.
 
-> **The checked-in entries are examples.** They are harmless no-op class
-> libraries with no BepInEx plugin attribute, so installing them does nothing
-> in game. They exist to demonstrate browsing, filtering, dependency metadata
-> and the full install flow. Replace them with real plugins, give each version
-> a distinct file name, recompute `sha256`, and update `catalog.json` before
+> **The checked-in entry is an example.** It points at a placeholder release
+> asset and does nothing in game. Replace it with a real mod entry before
 > announcing the catalog to users.
 
 ## Adding a real mod
 
-1. Zip the plugin `.dll` files into `mods/<id>-<version>.zip`.
-2. Compute the hash: `sha256sum mods/<id>-<version>.zip`.
-3. Add or update the entry in `catalog.json`. Keep `id` stable across versions;
-   bump `version`, change `download_url`, and update `sha256`/`size`.
-4. Commit and push to `master`. The launcher picks up changes on its next
-   refresh (or within the one-hour cache TTL).
+1. Build a `.zip` containing the plugin `.dll` files, or use a single `.dll`.
+2. Publish it as a GitHub release asset with a **stable filename** (e.g.
+   `CoolMod.zip`) in the mod's own repository.
+3. Add one entry to `catalog.json` with `id`, `name`, `description` and
+   `download_url` set to
+   `https://github.com/<owner>/<repo>/releases/latest/download/CoolMod.zip`.
+4. Commit and push to `master`. Users see the new entry immediately and press
+   **Reinstall** in the Mod Browser to pull the current asset.
 
-Invalid JSON, duplicate ids, missing required fields or bad hashes make the
-whole catalog fail validation and the launcher falls back to its cached copy.
-
-See `docs/MOD_CATALOG.md` in the launcher repository for the full schema.
+For every later release, step 2 is all you need — keep the same asset name and
+the catalog never changes. Invalid JSON, duplicate ids or missing required
+fields make the catalog fail validation and the Mod Browser shows an error.
