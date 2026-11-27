@@ -1,0 +1,19 @@
+{
+  "updated_at": "2026-11-22",
+  "mods": [
+    {
+      "id": "dev.example.noop-lib",
+      "name": "Example Library (No-op)",
+      "version": "1.0.0",
+      "author": "Isam (example)",
+      "category": "Library",
+      "description": "EXAMPLE ONLY - a harmless placeholder library. It contains no BepInEx plugin, so it does nothing in game. Included to demonstrate dependency links.",
+      "download_url": "",
+      "sha256": "",
+      "size": 1540,
+      "dependencies": [],
+      "incompatibilities": [],
+      "game_version": "any"
+    }
+  ]
+}
